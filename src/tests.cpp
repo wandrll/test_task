@@ -17,7 +17,6 @@ int main () {
 }
 
 
-
 TEST(Pool, constructor_and_measure) {
     Pool pool(10);
 
@@ -36,7 +35,7 @@ TEST(Pool, connect) {
 }
 
 
-TEST(Pool, connect_from_example){
+TEST(Pool, connect_from_example) {
     Pool A(10);
     Pool B(20);
     Pool C(50);
@@ -65,7 +64,7 @@ TEST(Pool, stress_connect) {
     Pool pools[100];
     int total = 0;
 
-    for (int i = 0; i < 100; i++){
+    for (int i = 0; i < 100; i++) {
         int added = std::rand() % 1000;
         pools[i].Add(added);
         total += added;
@@ -73,13 +72,12 @@ TEST(Pool, stress_connect) {
 
     double per_pool = total / 100.;
 
-    for (int i = 0; i < 100; i++){
+    for (int i = 0; i < 100; i++) {
         pools[i].Connect(pools[(i + 1) % 100]);
     }
 
 
-
-    for (int i = 0; i < 100; i++){
+    for (int i = 0; i < 100; i++) {
         ASSERT_EQ(pools[i].Measure(), per_pool);
     }
 

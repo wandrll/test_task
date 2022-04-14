@@ -26,14 +26,13 @@ public:
     Pool& operator= (Pool&& other) = default;
 
 
-
     [[nodiscard]] double Measure () const;
 
     void Connect (Pool& pool);
 
     void Add (unsigned long long water);
 
-    ~Pool();
+    ~Pool ();
 
 private:
 
@@ -42,22 +41,28 @@ private:
     public:
         ControlBlock (unsigned long long init_amount, Pool* pool);
 
+        ControlBlock (const ControlBlock& other) = delete;
+        ControlBlock& operator= (const ControlBlock& other) = delete;
+        ControlBlock (ControlBlock&& other) = delete;
+        ControlBlock& operator= (ControlBlock&& other) = delete;
+
+
         void Merge (ControlBlock* other);
 
-        double Measure () const{
+        double Measure () const {
             return static_cast<double>(total_amount_of_water_) / static_cast<double>(count_of_pools_);
         }
 
-        void Add (unsigned long long water){
+        void Add (unsigned long long water) {
             total_amount_of_water_ += water;
         }
 
-        int PoolsCount(){
+        int PoolsCount () {
             return count_of_pools_;
         }
 
 
-        void DecreasePoolsCount(){
+        void DecreasePoolsCount () {
             count_of_pools_--;
         }
 
@@ -65,7 +70,6 @@ private:
         int count_of_pools_;
         unsigned long long total_amount_of_water_;
         std::vector<Pool*> pools_;
-        //required for right deletion of this object
     };
 
     ControlBlock* control_; //
