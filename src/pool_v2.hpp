@@ -2,20 +2,12 @@
 // Created by wandrl on 4/15/22.
 //
 
-#ifndef ISP_POOL_HPP
-#define ISP_POOL_HPP
-
+#ifndef ISP_POOL_V2_H
+#define ISP_POOL_V2_H
 
 #include <vector>
-#include <list>
-//Main idea:
-//There are pools and control blocks.
-//Control block handle all operations for group of pools
-//Asymptotic:
-//Add water - O(1)
-//Measure - O(1)
-//Connect - O(min {cnt1, cnt2}), where cnt1(2) - number of pools connected with current pool
-
+#include <iostream>
+#include <cstdio>
 class Pool {
 public:
 
@@ -41,6 +33,7 @@ private:
     class ControlBlock {
     public:
         ControlBlock (unsigned long long init_amount, Pool* pool);
+        ControlBlock();
 
         ControlBlock (const ControlBlock& other) = delete;
         ControlBlock& operator= (const ControlBlock& other) = delete;
@@ -48,10 +41,10 @@ private:
         ControlBlock& operator= (ControlBlock&& other) = delete;
 
 
-        void Merge (ControlBlock* other);
+        void Merge (ControlBlock* first, ControlBlock* second);
 
         double Measure () const {
-            return static_cast<double>(total_amount_of_water_) / static_cast<double>(count_of_pools_);
+          return static_cast<double>(total_amount_of_water_) / static_cast<double>(count_of_pools_);
         }
 
         void Add (unsigned long long water) {
@@ -63,19 +56,30 @@ private:
         }
 
 
-        void DecreasePoolsCount () {
-            count_of_pools_--;
+        void DecreaseReferenceCount () {
+            reference_count_--;
+            if (reference_count_ == 0){
+                delete this;
+            }
         }
 
-    private:
+
+        ControlBlock* parent_;
         int count_of_pools_;
         unsigned long long total_amount_of_water_;
+        unsigned long long reference_count_;
         std::vector<Pool*> pools_;
+
+
+
     };
 
-    ControlBlock* control_; //
+
+    void FindCorrectControlBlock() const;
+
+
+    mutable ControlBlock* control_; //
 
 };
 
-
-#endif //ISP_POOL_HPP
+#endif //ISP_POOL_V2_H
