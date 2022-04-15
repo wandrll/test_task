@@ -58,20 +58,20 @@ void Pool::ControlBlock::Merge (ControlBlock* other) {
     auto count = other->count_of_pools_;
 
 
-//    if(count_of_pools_ > pools_.capacity()) {
-//        pools_.resize(count_of_pools_ * 10);
-//    }
-//
-//    for (int i = prev_cnt; i < count_of_pools_; i++){
-//        pools_[i] = other->pools_[i - prev_cnt];
-//        pools_[i]->control_ = this;
-//    }
-
-
-    for (auto elem: other->pools_) {
-        pools_.push_back(elem);
-        pools_.back()->control_ = this;
+    if(count_of_pools_ > pools_.capacity()) {
+        pools_.resize(count_of_pools_ * 10);
     }
+
+    for (int i = prev_cnt; i < count_of_pools_; i++){
+        pools_[i] = other->pools_[i - prev_cnt];
+        pools_[i]->control_ = this;
+    }
+
+//
+//    for (auto elem: other->pools_) {
+//        pools_.push_back(elem);
+//        pools_.back()->control_ = this;
+//    }
 
     delete other;
 }
