@@ -59,7 +59,7 @@ void Pool::ControlBlock::Merge (ControlBlock* other) {
 
 
     if(count_of_pools_ > pools_.capacity()) {
-        pools_.resize(count_of_pools_ * 10);
+        pools_.resize(count_of_pools_ * resize_factor);
     }
 
     for (int i = prev_cnt; i < count_of_pools_; i++){

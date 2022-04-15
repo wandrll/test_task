@@ -16,6 +16,8 @@
 //Measure - O(1)
 //Connect - O(min {cnt1, cnt2}), where cnt1(2) - number of pools connected with current pool
 
+const int resize_factor = 10;
+
 class Pool {
 public:
 
