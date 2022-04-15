@@ -68,8 +68,6 @@ private:
         int count_of_pools_;
         unsigned long long total_amount_of_water_;
         unsigned long long reference_count_;
-        std::vector<Pool*> pools_;
-
 
 
     };

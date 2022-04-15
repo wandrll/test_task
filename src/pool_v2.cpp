@@ -66,7 +66,6 @@ Pool::~Pool () {
 Pool::ControlBlock::ControlBlock (unsigned long long init_amount, Pool* pool) :
         count_of_pools_(1),
         total_amount_of_water_(init_amount),
-        pools_(1, pool),
         reference_count_(1),
         parent_(nullptr){}
 
