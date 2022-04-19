@@ -8,7 +8,7 @@
 #include <vector>
 
 const int resize_factor = 10;
-const int critical_count = 250000;
+const int critical_count = 200000;
 
 class Pool {
 public:
@@ -43,7 +43,7 @@ private:
         ControlBlock& operator= (ControlBlock&& other) = delete;
 
 
-        void CreateParent (ControlBlock* first, ControlBlock* second);
+        void CreateParent (ControlBlock* first);
         void Merge (ControlBlock* other);
 
         double Measure () const {
