@@ -8,7 +8,7 @@
 #include <vector>
 
 const int resize_factor = 10;
-const int critical_count = 200000;
+const int critical_count = 250000;
 
 class Pool {
 public:
