@@ -1,13 +1,15 @@
 //
-// Created by wandrl on 4/15/22.
+// Created by wandrl on 4/19/22.
 //
 
-#ifndef ISP_POOL_V2_H
-#define ISP_POOL_V2_H
+#ifndef ISP_POOL_V3_H
+#define ISP_POOL_V3_H
 
 #include <vector>
-#include <iostream>
-#include <cstdio>
+
+const int resize_factor = 10;
+const int critical_count = 200000;
+
 class Pool {
 public:
 
@@ -42,9 +44,10 @@ private:
 
 
         void CreateParent (ControlBlock* first, ControlBlock* second);
+        void Merge (ControlBlock* other);
 
         double Measure () const {
-          return static_cast<double>(total_amount_of_water_) / static_cast<double>(count_of_pools_);
+            return static_cast<double>(total_amount_of_water_) / static_cast<double>(count_of_pools_);
         }
 
         void Add (unsigned long long water) {
@@ -70,6 +73,7 @@ private:
         unsigned long long reference_count_;
 
 
+        std::vector<Pool*> pools_;
     };
 
 
@@ -80,4 +84,4 @@ private:
 
 };
 
-#endif //ISP_POOL_V2_H
+#endif //ISP_POOL_V3_H

@@ -27,7 +27,7 @@ void Pool::Connect (Pool& pool) {
     }
     ControlBlock* new_control = new ControlBlock;
 
-    new_control->Merge(control_, pool.control_);
+    new_control->CreateParent(control_, pool.control_);
 }
 
 void Pool::Add (unsigned long long water) {
@@ -75,15 +75,15 @@ Pool::ControlBlock::ControlBlock() :
         reference_count_(0),
         parent_(nullptr){}
 
-void Pool::ControlBlock::Merge (ControlBlock* left, ControlBlock* right) {
+void Pool::ControlBlock::CreateParent (ControlBlock* first, ControlBlock* second) {
 
-    total_amount_of_water_ = left->total_amount_of_water_ + right->total_amount_of_water_;
-    count_of_pools_ = left->count_of_pools_ + right->count_of_pools_;
-    reference_count_ = left->reference_count_ + right->reference_count_;
+    total_amount_of_water_ = first->total_amount_of_water_ + second->total_amount_of_water_;
+    count_of_pools_ = first->count_of_pools_ + second->count_of_pools_;
+    reference_count_ = first->reference_count_ + second->reference_count_;
 
 
-    right->parent_ = this;
-    left->parent_ = this;
+    second->parent_ = this;
+    first->parent_ = this;
 
 }
 

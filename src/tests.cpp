@@ -61,23 +61,23 @@ TEST(Pool, connect_from_example) {
 
 
 TEST(Pool, stress_connect) {
-    Pool pools[100];
+    Pool pools[10000];
     int total = 0;
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10000; i++) {
         int added = std::rand() % 1000;
         pools[i].Add(added);
         total += added;
     }
 
-    double per_pool = total / 100.;
+    double per_pool = total / 10000.;
 
-    for (int i = 0; i < 100; i++) {
-        pools[i].Connect(pools[(i + 1) % 100]);
+    for (int i = 0; i < 10000; i++) {
+        pools[i].Connect(pools[(i + 1) % 10000]);
     }
 
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10000; i++) {
         ASSERT_EQ(pools[i].Measure(), per_pool);
     }
 

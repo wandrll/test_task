@@ -30,6 +30,15 @@ add_executable(Valgrind_tests_2 src/pool_v2.cpp src/pool_v2.hpp src/tests.cpp)
 target_link_libraries(Sanitizers_tests_2 gtest)
 target_link_libraries(Valgrind_tests_2 gtest)
 
-
-
 add_executable(Sanitizers_performance_2 src/pool_v2.cpp src/pool_v2.hpp src/performance.cpp)
+
+
+
+add_executable(Sanitizers_tests_3 src/pool_v3.cpp src/pool_v3.hpp src/tests.cpp)
+add_executable(Valgrind_tests_3 src/pool_v3.cpp src/pool_v3.hpp src/tests.cpp)
+
+target_link_libraries(Sanitizers_tests_3 gtest)
+target_link_libraries(Valgrind_tests_3 gtest)
+
+add_executable(Sanitizers_performance_3 src/pool_v3.cpp src/pool_v3.hpp src/performance.cpp)
+
