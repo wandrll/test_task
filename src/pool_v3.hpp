@@ -77,7 +77,14 @@ private:
     };
 
 
-    void FindCorrectControlBlock() const;
+    void FindCorrectControlBlock() const{
+        while (control_->parent_ != nullptr){
+            auto next = control_->parent_;
+            control_->DecreaseReferenceCount();
+            control_ = next;
+        }
+
+    }
 
 
     mutable ControlBlock* control_; //

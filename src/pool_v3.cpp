@@ -33,7 +33,11 @@ void Pool::Connect (Pool& pool) {
         }
     }else{
 
-        control_->CreateParent(pool.control_);
+        if (control_->PoolsCount() > pool.control_->PoolsCount()) {
+            control_->CreateParent(pool.control_);
+        } else {
+            pool.control_->CreateParent(control_);
+        }
 
     }
 }
@@ -45,15 +49,6 @@ void Pool::Add (unsigned long long water) {
 
 
 
-
-void Pool::FindCorrectControlBlock() const{
-    while (control_->parent_ != nullptr){
-        auto next = control_->parent_;
-        control_->DecreaseReferenceCount();
-        control_ = next;
-    }
-
-}
 
 
 void Pool::ControlBlock::Merge (ControlBlock* other) {
